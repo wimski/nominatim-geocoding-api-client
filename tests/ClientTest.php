@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Wimski\Nominatim\Tests;
 
 use Exception;
+use Http\Discovery\Psr17FactoryDiscovery;
+use Http\Discovery\Psr18ClientDiscovery;
 use Mockery;
 use Mockery\MockInterface;
 use Psr\Http\Client\ClientInterface as HttpClientInterface;
@@ -19,6 +21,28 @@ use Wimski\Nominatim\Exceptions\RequestException;
 
 class ClientTest extends AbstractTest
 {
+    /**
+     * @test
+     */
+    public function it_discovers_psr_classes_if_not_supplied(): void
+    {
+        Mockery::mock('alias:' . Psr18ClientDiscovery::class)
+            ->shouldReceive('find')
+            ->once()
+            ->andReturn(Mockery::mock(HttpClientInterface::class));
+
+        Mockery::mock('alias:' . Psr17FactoryDiscovery::class)
+            ->shouldReceive('findRequestFactory')
+            ->once()
+            ->andReturn(Mockery::mock(RequestFactoryInterface::class))
+            ->getMock()
+            ->shouldReceive('findUriFactory')
+            ->once()
+            ->andReturn(Mockery::mock(UriFactoryInterface::class));
+
+        new Client();
+    }
+
     /**
      * @test
      */
