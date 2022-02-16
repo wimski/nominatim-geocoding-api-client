@@ -9,12 +9,12 @@ use Wimski\Nominatim\Enums\PolygonTypeEnum;
 
 abstract class AbstractGeocodingRequestParameters implements RequestParametersInterface
 {
-    protected ?bool $includeAddressDetails;
-    protected ?bool $includeNameDetails;
-    protected ?bool $includeExtraTags;
-    protected ?PolygonTypeEnum $polygonType;
-    protected ?float $polygonThreshold;
-    protected ?string $language;
+    protected ?bool $includeAddressDetails = null;
+    protected ?bool $includeNameDetails = null;
+    protected ?bool $includeExtraTags = null;
+    protected ?PolygonTypeEnum $polygonType = null;
+    protected ?float $polygonThreshold = null;
+    protected ?string $language = null;
 
     public function includeAddressDetails(bool $includeAddressDetails = true): self
     {

@@ -18,10 +18,10 @@ abstract class ForwardGeocodingRequestParameters extends AbstractGeocodingReques
      */
     protected array $excludedPlaceIds = [];
 
-    protected ?int $limit;
-    protected ?ViewBox $viewBox;
-    protected ?bool $bounded;
-    protected ?bool $dedupe;
+    protected ?int $limit = null;
+    protected ?ViewBox $viewBox = null;
+    protected ?bool $bounded = null;
+    protected ?bool $dedupe = null;
 
     public function addCountryCode(string $countryCode): self
     {

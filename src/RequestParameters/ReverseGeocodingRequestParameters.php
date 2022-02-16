@@ -8,7 +8,7 @@ use Wimski\Nominatim\Objects\Coordinate;
 
 class ReverseGeocodingRequestParameters extends AbstractGeocodingRequestParameters
 {
-    protected ?int $zoom;
+    protected ?int $zoom = null;
 
     public function __construct(
         protected Coordinate $coordinate,

@@ -4,14 +4,16 @@ declare(strict_types=1);
 
 namespace Wimski\Nominatim\RequestParameters;
 
-class ForwardGeocodingStructuredRequestParameters extends ForwardGeocodingQueryRequestParameters
+use RuntimeException;
+
+class ForwardGeocodingStructuredRequestParameters extends ForwardGeocodingRequestParameters
 {
-    protected ?string $street;
-    protected ?string $city;
-    protected ?string $county;
-    protected ?string $state;
-    protected ?string $country;
-    protected ?string $postalCode;
+    protected ?string $street = null;
+    protected ?string $city = null;
+    protected ?string $county = null;
+    protected ?string $state = null;
+    protected ?string $country = null;
+    protected ?string $postalCode = null;
 
     public function street(string $street): self
     {
@@ -55,6 +57,10 @@ class ForwardGeocodingStructuredRequestParameters extends ForwardGeocodingQueryR
         return $this;
     }
 
+    /**
+     * {inheritDoc}
+     * @throws RuntimeException
+     */
     public function toArray(): array
     {
         $data = [];
