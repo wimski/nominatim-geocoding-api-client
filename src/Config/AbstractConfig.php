@@ -8,16 +8,18 @@ use Wimski\Nominatim\Contracts\ConfigInterface;
 
 abstract class AbstractConfig implements ConfigInterface
 {
+    protected string $language;
+
     public function __construct(
         protected string $url,
         protected string $forwardGeocodingEndpoint,
         protected string $reverseGeocodingEndpoint,
-        protected ?string $language = null,
+        ?string $language = null,
     ) {
         $this->url                      = rtrim(trim($this->url), '/');
         $this->forwardGeocodingEndpoint = '/' . ltrim(trim($this->forwardGeocodingEndpoint), '/');
         $this->reverseGeocodingEndpoint = '/' . ltrim(trim($this->reverseGeocodingEndpoint), '/');
-        $this->language                 = $this->language ?? 'en-US';
+        $this->language                 = $language ?? 'en-US';
     }
 
     public function getUrl(): string

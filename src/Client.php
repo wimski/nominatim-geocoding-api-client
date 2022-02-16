@@ -17,14 +17,18 @@ use Wimski\Nominatim\Exceptions\RequestException;
 
 class Client implements ClientInterface
 {
+    protected HttpClientInterface $client;
+    protected RequestFactoryInterface $requestFactory;
+    protected UriFactoryInterface $uriFactory;
+
     public function __construct(
-        protected ?HttpClientInterface $client = null,
-        protected ?RequestFactoryInterface $requestFactory = null,
-        protected ?UriFactoryInterface $uriFactory = null,
+        ?HttpClientInterface $client = null,
+        ?RequestFactoryInterface $requestFactory = null,
+        ?UriFactoryInterface $uriFactory = null,
     ) {
-        $this->client         = $this->client ?? Psr18ClientDiscovery::find();
-        $this->requestFactory = $this->requestFactory ?? Psr17FactoryDiscovery::findRequestFactory();
-        $this->uriFactory     = $this->uriFactory ?? Psr17FactoryDiscovery::findUriFactory();
+        $this->client         = $client ?? Psr18ClientDiscovery::find();
+        $this->requestFactory = $requestFactory ?? Psr17FactoryDiscovery::findRequestFactory();
+        $this->uriFactory     = $uriFactory ?? Psr17FactoryDiscovery::findUriFactory();
     }
 
     public function request(string $uri, array $headers = [], array $parameters = []): ResponseInterface

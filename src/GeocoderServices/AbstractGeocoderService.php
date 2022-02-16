@@ -43,7 +43,7 @@ abstract class AbstractGeocoderService implements GeocoderServiceInterface
     abstract protected function getConfig(): ConfigInterface;
 
     /**
-     * @return array<string, mixed>
+     * @return array<string, string>
      */
     protected function getHeaders(): array
     {
@@ -52,6 +52,10 @@ abstract class AbstractGeocoderService implements GeocoderServiceInterface
         ];
     }
 
+    /**
+     * @param RequestParametersInterface $parameters
+     * @return array<string, mixed>
+     */
     protected function convertParametersToArray(RequestParametersInterface $parameters): array
     {
         return array_merge($parameters->toArray(), [

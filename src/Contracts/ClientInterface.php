@@ -10,9 +10,9 @@ use Wimski\Nominatim\Exceptions\RequestException;
 interface ClientInterface
 {
     /**
-     * @param string               $uri
-     * @param array<string, mixed> $headers
-     * @param array<string, mixed> $parameters
+     * @param string                $uri
+     * @param array<string, string> $headers
+     * @param array<string, mixed>  $parameters
      * @return ResponseInterface
      * @throws RequestException
      */

@@ -16,6 +16,9 @@ abstract class AbstractGeocodingResponse
     public function __construct(
         ResponseInterface $response,
     ) {
-        $this->data = json_decode((string) $response->getBody(), true);
+        /** @var array<string, mixed> $data */
+        $data = json_decode((string) $response->getBody(), true);
+
+        $this->data = $data;
     }
 }

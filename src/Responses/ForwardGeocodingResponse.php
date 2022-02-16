@@ -4,6 +4,6 @@ declare(strict_types=1);
 
 namespace Wimski\Nominatim\Responses;
 
-class ForwardGeocodingResponse
+class ForwardGeocodingResponse extends AbstractGeocodingResponse
 {
 }

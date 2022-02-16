@@ -75,7 +75,10 @@ abstract class AbstractGeocodingRequestParameters implements RequestParametersIn
         }
 
         if ($this->polygonType) {
-            $data[$this->polygonType->getValue()] = 1;
+            /** @var string $polygonTypeKey */
+            $polygonTypeKey = $this->polygonType->getValue();
+
+            $data[$polygonTypeKey] = 1;
         }
 
         if ($this->polygonThreshold !== null) {
