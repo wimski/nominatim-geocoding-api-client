@@ -24,7 +24,10 @@ abstract class AbstractGeocoderService implements GeocoderServiceInterface
 
     public function requestForwardGeocoding(ForwardGeocodingRequestParameters $parameters): ForwardGeocodingResponse
     {
-        $uri = $this->getConfig()->getUrl() . $this->getConfig()->getForwardGeocodingEndpoint();
+        $uri = $this->makeUri(
+            $this->getConfig()->getUrl(),
+            $this->getConfig()->getForwardGeocodingEndpoint(),
+        );
 
         $response = $this->request($uri, $parameters);
 
@@ -33,7 +36,10 @@ abstract class AbstractGeocoderService implements GeocoderServiceInterface
 
     public function requestReverseGeocoding(ReverseGeocodingRequestParameters $parameters): ReverseGeocodingResponse
     {
-        $uri = $this->getConfig()->getUrl() . $this->getConfig()->getReverseGeocodingEndpoint();
+        $uri = $this->makeUri(
+            $this->getConfig()->getUrl(),
+            $this->getConfig()->getReverseGeocodingEndpoint(),
+        );
 
         $response = $this->request($uri, $parameters);
 
@@ -41,6 +47,26 @@ abstract class AbstractGeocoderService implements GeocoderServiceInterface
     }
 
     abstract protected function getConfig(): ConfigInterface;
+
+    protected function makeUri(string $uri, string $endpoint): string
+    {
+        return rtrim($uri, '/') . '/' . ltrim($endpoint, '/');
+    }
+
+    /**
+     * @param string                     $uri
+     * @param RequestParametersInterface $parameters
+     * @return ResponseInterface
+     * @throws RequestException
+     */
+    protected function request(string $uri, RequestParametersInterface $parameters): ResponseInterface
+    {
+        return $this->client->request(
+            $uri,
+            $this->getHeaders(),
+            $this->convertParametersToArray($parameters),
+        );
+    }
 
     /**
      * @return array<string, string>
@@ -61,20 +87,5 @@ abstract class AbstractGeocoderService implements GeocoderServiceInterface
         return array_merge($parameters->toArray(), [
             'format' => 'json',
         ]);
-    }
-
-    /**
-     * @param string                     $uri
-     * @param RequestParametersInterface $parameters
-     * @return ResponseInterface
-     * @throws RequestException
-     */
-    protected function request(string $uri, RequestParametersInterface $parameters): ResponseInterface
-    {
-        return $this->client->request(
-            $uri,
-            $this->getHeaders(),
-            $this->convertParametersToArray($parameters),
-        );
     }
 }
