@@ -8,4 +8,8 @@ use Exception;
 
 class HttpException extends Exception
 {
+    public function getStatusCode(): int
+    {
+        return $this->code;
+    }
 }

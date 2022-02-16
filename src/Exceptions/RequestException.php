@@ -27,7 +27,7 @@ class RequestException extends Exception
         $previous = $this->getPrevious();
 
         if ($previous instanceof HttpException) {
-            return $previous->getCode();
+            return $previous->getStatusCode();
         }
 
         return null;
