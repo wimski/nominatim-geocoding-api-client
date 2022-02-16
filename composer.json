@@ -1,6 +1,6 @@
 {
     "name": "wimski/nominatim-geocoding-api-client",
-    "description": "PHP client for the Nominatim geocoding API",
+    "description": "Nominatim Geocoding API Client",
     "type": "library",
     "license": "MIT",
     "keywords": [
