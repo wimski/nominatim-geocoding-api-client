@@ -9,8 +9,8 @@ class LocationIqConfig extends AbstractConfig
     public function __construct(
         protected string $key,
         string $url = 'https://eu1.locationiq.com/v1',
-        string $forwardGeocodingEndpoint = '/search.php',
-        string $reverseGeocodingEndpoint = '/reverse.php',
+        string $forwardGeocodingEndpoint = 'search.php',
+        string $reverseGeocodingEndpoint = 'reverse.php',
         string $language = null,
     ) {
         parent::__construct(
@@ -19,8 +19,6 @@ class LocationIqConfig extends AbstractConfig
             $reverseGeocodingEndpoint,
             $language,
         );
-
-        $this->key = trim($this->key);
     }
 
     public function getKey(): string

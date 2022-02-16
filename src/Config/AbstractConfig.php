@@ -16,10 +16,7 @@ abstract class AbstractConfig implements ConfigInterface
         protected string $reverseGeocodingEndpoint,
         ?string $language = null,
     ) {
-        $this->url                      = rtrim(trim($this->url), '/');
-        $this->forwardGeocodingEndpoint = '/' . ltrim(trim($this->forwardGeocodingEndpoint), '/');
-        $this->reverseGeocodingEndpoint = '/' . ltrim(trim($this->reverseGeocodingEndpoint), '/');
-        $this->language                 = $language ?? 'en-US';
+        $this->language = $language ?? 'en-US';
     }
 
     public function getUrl(): string

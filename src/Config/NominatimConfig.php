@@ -10,8 +10,8 @@ class NominatimConfig extends AbstractConfig
         protected string $userAgent,
         protected string $email,
         string $url = 'https://nominatim.openstreetmap.org',
-        string $forwardGeocodingEndpoint = '/search',
-        string $reverseGeocodingEndpoint = '/reverse',
+        string $forwardGeocodingEndpoint = 'search',
+        string $reverseGeocodingEndpoint = 'reverse',
         string $language = null,
     ) {
         parent::__construct(
@@ -20,9 +20,6 @@ class NominatimConfig extends AbstractConfig
             $reverseGeocodingEndpoint,
             $language,
         );
-
-        $this->userAgent = trim($this->userAgent);
-        $this->email     = trim($this->email);
     }
 
     public function getUserAgent(): string
