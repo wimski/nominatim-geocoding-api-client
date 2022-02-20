@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Wimski\Nominatim\Config;
 
-class NominatimConfig extends AbstractConfig
+use Wimski\Nominatim\Contracts\Config\NominatimConfigInterface;
+
+class NominatimConfig extends AbstractConfig implements NominatimConfigInterface
 {
     public function __construct(
         protected string $userAgent,

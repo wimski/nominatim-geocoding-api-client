@@ -7,12 +7,14 @@ namespace Wimski\Nominatim\Tests\GeocoderServices;
 use Mockery;
 use Mockery\MockInterface;
 use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\StreamInterface;
-use Wimski\Nominatim\Config\LocationIqConfig;
 use Wimski\Nominatim\Contracts\ClientInterface;
+use Wimski\Nominatim\Contracts\Config\LocationIqConfigInterface;
+use Wimski\Nominatim\Contracts\RequestParameters\ForwardGeocodingRequestParametersInterface;
+use Wimski\Nominatim\Contracts\RequestParameters\ReverseGeocodingRequestParametersInterface;
+use Wimski\Nominatim\Contracts\Responses\ForwardGeocodingResponseInterface;
+use Wimski\Nominatim\Contracts\Responses\ReverseGeocodingResponseInterface;
+use Wimski\Nominatim\Contracts\Transformers\GeocodingResponseTransformerInterface;
 use Wimski\Nominatim\GeocoderServices\LocationIqGeocoderService;
-use Wimski\Nominatim\RequestParameters\ForwardGeocodingQueryRequestParameters;
-use Wimski\Nominatim\RequestParameters\ReverseGeocodingRequestParameters;
 use Wimski\Nominatim\Tests\AbstractTest;
 
 class LocationIqGeocoderServiceTest extends AbstractTest
@@ -25,7 +27,12 @@ class LocationIqGeocoderServiceTest extends AbstractTest
     protected $client;
 
     /**
-     * @var LocationIqConfig|MockInterface
+     * @var GeocodingResponseTransformerInterface|MockInterface
+     */
+    protected $responseTransformer;
+
+    /**
+     * @var LocationIqConfigInterface|MockInterface
      */
     protected $config;
 
@@ -33,8 +40,9 @@ class LocationIqGeocoderServiceTest extends AbstractTest
     {
         parent::setUp();
 
-        $this->client = Mockery::mock(ClientInterface::class);
-        $this->config = Mockery::mock(LocationIqConfig::class);
+        $this->client              = Mockery::mock(ClientInterface::class);
+        $this->responseTransformer = Mockery::mock(GeocodingResponseTransformerInterface::class);
+        $this->config              = Mockery::mock(LocationIqConfigInterface::class);
 
         $this->config
             ->shouldReceive('getUrl')->once()->andReturn('https://custom.locationiq.com/')->getMock()
@@ -43,6 +51,7 @@ class LocationIqGeocoderServiceTest extends AbstractTest
 
         $this->service = new LocationIqGeocoderService(
             $this->client,
+            $this->responseTransformer,
             $this->config,
         );
     }
@@ -52,6 +61,8 @@ class LocationIqGeocoderServiceTest extends AbstractTest
      */
     public function it_makes_a_forward_geocoding_request(): void
     {
+        $response = Mockery::mock(ResponseInterface::class);
+
         $this->config
             ->shouldReceive('getForwardGeocodingEndpoint')
             ->once()
@@ -67,10 +78,16 @@ class LocationIqGeocoderServiceTest extends AbstractTest
                 'format' => 'json',
                 'key'    => 'access-token',
             ])
-            ->andReturn($this->mockResponse());
+            ->andReturn($response);
 
-        /** @var ForwardGeocodingQueryRequestParameters|MockInterface $parameters */
-        $parameters = Mockery::mock(ForwardGeocodingQueryRequestParameters::class)
+        $this->responseTransformer
+            ->shouldReceive('transformForwardResponse')
+            ->once()
+            ->with($response)
+            ->andReturn(Mockery::mock(ForwardGeocodingResponseInterface::class));
+
+        /** @var ForwardGeocodingRequestParametersInterface|MockInterface $parameters */
+        $parameters = Mockery::mock(ForwardGeocodingRequestParametersInterface::class)
             ->shouldReceive('toArray')
             ->once()
             ->andReturn(['param' => 'value'])
@@ -84,6 +101,8 @@ class LocationIqGeocoderServiceTest extends AbstractTest
      */
     public function it_makes_a_reverse_geocoding_request(): void
     {
+        $response = Mockery::mock(ResponseInterface::class);
+
         $this->config
             ->shouldReceive('getReverseGeocodingEndpoint')
             ->once()
@@ -99,36 +118,21 @@ class LocationIqGeocoderServiceTest extends AbstractTest
                 'format' => 'json',
                 'key'    => 'access-token',
             ])
-            ->andReturn($this->mockResponse());
+            ->andReturn($response);
 
-        /** @var ReverseGeocodingRequestParameters|MockInterface $parameters */
-        $parameters = Mockery::mock(ReverseGeocodingRequestParameters::class)
+        $this->responseTransformer
+            ->shouldReceive('transformReverseResponse')
+            ->once()
+            ->with($response)
+            ->andReturn(Mockery::mock(ReverseGeocodingResponseInterface::class));
+
+        /** @var ReverseGeocodingRequestParametersInterface|MockInterface $parameters */
+        $parameters = Mockery::mock(ReverseGeocodingRequestParametersInterface::class)
             ->shouldReceive('toArray')
             ->once()
             ->andReturn(['param' => 'value'])
             ->getMock();
 
         $this->service->requestReverseGeocoding($parameters);
-    }
-
-    /**
-     * @return ResponseInterface|MockInterface
-     */
-    protected function mockResponse()
-    {
-        $stream = Mockery::mock(StreamInterface::class)
-            ->shouldReceive('__toString')
-            ->once()
-            ->andReturn('{"data":"contents"}')
-            ->getMock();
-
-        /** @var ResponseInterface|MockInterface $response */
-        $response = Mockery::mock(ResponseInterface::class)
-            ->shouldReceive('getBody')
-            ->once()
-            ->andReturn($stream)
-            ->getMock();
-
-        return $response;
     }
 }

@@ -6,24 +6,27 @@ namespace Wimski\Nominatim\GeocoderServices;
 
 use Psr\Http\Message\ResponseInterface;
 use Wimski\Nominatim\Contracts\ClientInterface;
-use Wimski\Nominatim\Contracts\ConfigInterface;
+use Wimski\Nominatim\Contracts\Config\ConfigInterface;
 use Wimski\Nominatim\Contracts\GeocoderServiceInterface;
-use Wimski\Nominatim\Contracts\RequestParametersInterface;
+use Wimski\Nominatim\Contracts\RequestParameters\ForwardGeocodingRequestParametersInterface;
+use Wimski\Nominatim\Contracts\RequestParameters\RequestParametersInterface;
+use Wimski\Nominatim\Contracts\RequestParameters\ReverseGeocodingRequestParametersInterface;
+use Wimski\Nominatim\Contracts\Responses\ForwardGeocodingResponseInterface;
+use Wimski\Nominatim\Contracts\Responses\ReverseGeocodingResponseInterface;
+use Wimski\Nominatim\Contracts\Transformers\GeocodingResponseTransformerInterface;
 use Wimski\Nominatim\Exceptions\RequestException;
-use Wimski\Nominatim\RequestParameters\ForwardGeocodingRequestParameters;
-use Wimski\Nominatim\RequestParameters\ReverseGeocodingRequestParameters;
-use Wimski\Nominatim\Responses\ForwardGeocodingResponse;
-use Wimski\Nominatim\Responses\ReverseGeocodingResponse;
 
 abstract class AbstractGeocoderService implements GeocoderServiceInterface
 {
     public function __construct(
         protected ClientInterface $client,
+        protected GeocodingResponseTransformerInterface $responseTransformer,
     ) {
     }
 
-    public function requestForwardGeocoding(ForwardGeocodingRequestParameters $parameters): ForwardGeocodingResponse
-    {
+    public function requestForwardGeocoding(
+        ForwardGeocodingRequestParametersInterface $parameters,
+    ): ForwardGeocodingResponseInterface {
         $uri = $this->makeUri(
             $this->getConfig()->getUrl(),
             $this->getConfig()->getForwardGeocodingEndpoint(),
@@ -31,11 +34,12 @@ abstract class AbstractGeocoderService implements GeocoderServiceInterface
 
         $response = $this->request($uri, $parameters);
 
-        return new ForwardGeocodingResponse($response);
+        return $this->responseTransformer->transformForwardResponse($response);
     }
 
-    public function requestReverseGeocoding(ReverseGeocodingRequestParameters $parameters): ReverseGeocodingResponse
-    {
+    public function requestReverseGeocoding(
+        ReverseGeocodingRequestParametersInterface $parameters,
+    ): ReverseGeocodingResponseInterface {
         $uri = $this->makeUri(
             $this->getConfig()->getUrl(),
             $this->getConfig()->getReverseGeocodingEndpoint(),
@@ -43,7 +47,7 @@ abstract class AbstractGeocoderService implements GeocoderServiceInterface
 
         $response = $this->request($uri, $parameters);
 
-        return new ReverseGeocodingResponse($response);
+        return $this->responseTransformer->transformReverseResponse($response);
     }
 
     abstract protected function getConfig(): ConfigInterface;

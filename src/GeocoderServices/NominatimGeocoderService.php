@@ -4,18 +4,20 @@ declare(strict_types=1);
 
 namespace Wimski\Nominatim\GeocoderServices;
 
-use Wimski\Nominatim\Config\NominatimConfig;
 use Wimski\Nominatim\Contracts\ClientInterface;
-use Wimski\Nominatim\Contracts\ConfigInterface;
-use Wimski\Nominatim\Contracts\RequestParametersInterface;
+use Wimski\Nominatim\Contracts\Config\ConfigInterface;
+use Wimski\Nominatim\Contracts\Config\NominatimConfigInterface;
+use Wimski\Nominatim\Contracts\RequestParameters\RequestParametersInterface;
+use Wimski\Nominatim\Contracts\Transformers\GeocodingResponseTransformerInterface;
 
 class NominatimGeocoderService extends AbstractGeocoderService
 {
     public function __construct(
         ClientInterface $client,
-        protected NominatimConfig $config,
+        GeocodingResponseTransformerInterface $responseTransformer,
+        protected NominatimConfigInterface $config,
     ) {
-        parent::__construct($client);
+        parent::__construct($client, $responseTransformer);
     }
 
     protected function getConfig(): ConfigInterface

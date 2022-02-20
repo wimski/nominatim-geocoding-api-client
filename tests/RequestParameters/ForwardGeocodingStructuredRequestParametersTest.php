@@ -6,8 +6,8 @@ namespace Wimski\Nominatim\Tests\RequestParameters;
 
 use PHPUnit\Framework\TestCase;
 use Wimski\Nominatim\Enums\PolygonTypeEnum;
+use Wimski\Nominatim\Objects\Area;
 use Wimski\Nominatim\Objects\Coordinate;
-use Wimski\Nominatim\Objects\ViewBox;
 use Wimski\Nominatim\RequestParameters\ForwardGeocodingStructuredRequestParameters;
 
 class ForwardGeocodingStructuredRequestParametersTest extends TestCase
@@ -65,7 +65,7 @@ class ForwardGeocodingStructuredRequestParametersTest extends TestCase
             ->addExcludedPlaceId(123)
             ->addExcludedPlaceId('abc')
             ->limit(25)
-            ->viewBox(new ViewBox(
+            ->viewBox(new Area(
                 new Coordinate(1.1, 2.2),
                 new Coordinate(3.3, 4.4),
             ))

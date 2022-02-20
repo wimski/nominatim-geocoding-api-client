@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Wimski\Nominatim\Contracts;
+namespace Wimski\Nominatim\Contracts\Config;
 
 interface ConfigInterface
 {

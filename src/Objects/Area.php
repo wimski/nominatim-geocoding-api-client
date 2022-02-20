@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Wimski\Nominatim\Objects;
 
-class ViewBox
+class Area
 {
     public function __construct(
         protected Coordinate $topLeft,

@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Wimski\Nominatim\Tests\RequestParameters;
 
 use Wimski\Nominatim\Enums\PolygonTypeEnum;
+use Wimski\Nominatim\Objects\Area;
 use Wimski\Nominatim\Objects\Coordinate;
-use Wimski\Nominatim\Objects\ViewBox;
 use Wimski\Nominatim\RequestParameters\ForwardGeocodingQueryRequestParameters;
 use Wimski\Nominatim\Tests\AbstractTest;
 
@@ -43,7 +43,7 @@ class ForwardGeocodingQueryRequestParametersTest extends AbstractTest
             ->addExcludedPlaceId(123)
             ->addExcludedPlaceId('abc')
             ->limit(25)
-            ->viewBox(new ViewBox(
+            ->viewBox(new Area(
                 new Coordinate(1.1, 2.2),
                 new Coordinate(3.3, 4.4),
             ))

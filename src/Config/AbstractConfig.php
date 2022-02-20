@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Wimski\Nominatim\Config;
 
-use Wimski\Nominatim\Contracts\ConfigInterface;
+use Wimski\Nominatim\Contracts\Config\ConfigInterface;
 
 abstract class AbstractConfig implements ConfigInterface
 {

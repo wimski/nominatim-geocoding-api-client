@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace Wimski\Nominatim\RequestParameters;
 
-use Wimski\Nominatim\Objects\ViewBox;
+use Wimski\Nominatim\Contracts\RequestParameters\ForwardGeocodingRequestParametersInterface;
+use Wimski\Nominatim\Objects\Area;
 
-abstract class ForwardGeocodingRequestParameters extends AbstractGeocodingRequestParameters
+abstract class ForwardGeocodingRequestParameters extends AbstractGeocodingRequestParameters implements ForwardGeocodingRequestParametersInterface
 {
     /**
      * @var string[]
@@ -19,7 +20,7 @@ abstract class ForwardGeocodingRequestParameters extends AbstractGeocodingReques
     protected array $excludedPlaceIds = [];
 
     protected ?int $limit = null;
-    protected ?ViewBox $viewBox = null;
+    protected ?Area $viewBox = null;
     protected ?bool $bounded = null;
     protected ?bool $dedupe = null;
 
@@ -44,7 +45,7 @@ abstract class ForwardGeocodingRequestParameters extends AbstractGeocodingReques
         return $this;
     }
 
-    public function viewBox(ViewBox $viewBox): self
+    public function viewBox(Area $viewBox): self
     {
         $this->viewBox = $viewBox;
 

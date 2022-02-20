@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace Wimski\Nominatim\RequestParameters;
 
+use Wimski\Nominatim\Contracts\RequestParameters\ReverseGeocodingRequestParametersInterface;
 use Wimski\Nominatim\Objects\Coordinate;
 
-class ReverseGeocodingRequestParameters extends AbstractGeocodingRequestParameters
+class ReverseGeocodingRequestParameters extends AbstractGeocodingRequestParameters implements ReverseGeocodingRequestParametersInterface
 {
     protected ?int $zoom = null;
 

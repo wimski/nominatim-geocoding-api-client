@@ -4,25 +4,30 @@ declare(strict_types=1);
 
 namespace Wimski\Nominatim\Contracts;
 
+use Wimski\Nominatim\Contracts\RequestParameters\ForwardGeocodingRequestParametersInterface;
+use Wimski\Nominatim\Contracts\RequestParameters\ReverseGeocodingRequestParametersInterface;
+use Wimski\Nominatim\Contracts\Responses\ForwardGeocodingResponseInterface;
+use Wimski\Nominatim\Contracts\Responses\ReverseGeocodingResponseInterface;
 use Wimski\Nominatim\Exceptions\RequestException;
-use Wimski\Nominatim\RequestParameters\ForwardGeocodingRequestParameters;
-use Wimski\Nominatim\RequestParameters\ReverseGeocodingRequestParameters;
-use Wimski\Nominatim\Responses\ForwardGeocodingResponse;
-use Wimski\Nominatim\Responses\ReverseGeocodingResponse;
+use Wimski\Nominatim\Exceptions\ResponseException;
 
 interface GeocoderServiceInterface
 {
     /**
-     * @param ForwardGeocodingRequestParameters $parameters
-     * @return ForwardGeocodingResponse
-     * @throws RequestException
+     * @param ForwardGeocodingRequestParametersInterface $parameters
+     * @return ForwardGeocodingResponseInterface
+     * @throws RequestException|ResponseException
      */
-    public function requestForwardGeocoding(ForwardGeocodingRequestParameters $parameters): ForwardGeocodingResponse;
+    public function requestForwardGeocoding(
+        ForwardGeocodingRequestParametersInterface $parameters,
+    ): ForwardGeocodingResponseInterface;
 
     /**
-     * @param ReverseGeocodingRequestParameters $parameters
-     * @return ReverseGeocodingResponse
-     * @throws RequestException
+     * @param ReverseGeocodingRequestParametersInterface $parameters
+     * @return ReverseGeocodingResponseInterface
+     * @throws RequestException|ResponseException
      */
-    public function requestReverseGeocoding(ReverseGeocodingRequestParameters $parameters): ReverseGeocodingResponse;
+    public function requestReverseGeocoding(
+        ReverseGeocodingRequestParametersInterface $parameters,
+    ): ReverseGeocodingResponseInterface;
 }

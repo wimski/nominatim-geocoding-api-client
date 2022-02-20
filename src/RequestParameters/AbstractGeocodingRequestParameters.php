@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Wimski\Nominatim\RequestParameters;
 
-use Wimski\Nominatim\Contracts\RequestParametersInterface;
+use Wimski\Nominatim\Contracts\RequestParameters\RequestParametersInterface;
 use Wimski\Nominatim\Enums\PolygonTypeEnum;
 
 abstract class AbstractGeocodingRequestParameters implements RequestParametersInterface

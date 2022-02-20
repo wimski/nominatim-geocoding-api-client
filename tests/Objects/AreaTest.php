@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Wimski\Nominatim\Tests\Objects;
 
 use Mockery;
+use Wimski\Nominatim\Objects\Area;
 use Wimski\Nominatim\Objects\Coordinate;
-use Wimski\Nominatim\Objects\ViewBox;
 use Wimski\Nominatim\Tests\AbstractTest;
 
-class ViewBoxTest extends AbstractTest
+class AreaTest extends AbstractTest
 {
     /**
      * @test
@@ -19,9 +19,9 @@ class ViewBoxTest extends AbstractTest
         $topLeft     = Mockery::mock(Coordinate::class);
         $bottomRight = Mockery::mock(Coordinate::class);
 
-        $viewBox = new ViewBox($topLeft, $bottomRight);
+        $area = new Area($topLeft, $bottomRight);
 
-        static::assertSame($topLeft, $viewBox->getTopLeft());
-        static::assertSame($bottomRight, $viewBox->getBottomRight());
+        static::assertSame($topLeft, $area->getTopLeft());
+        static::assertSame($bottomRight, $area->getBottomRight());
     }
 }

@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Wimski\Nominatim\Config;
 
-class LocationIqConfig extends AbstractConfig
+use Wimski\Nominatim\Contracts\Config\LocationIqConfigInterface;
+
+class LocationIqConfig extends AbstractConfig implements LocationIqConfigInterface
 {
     public function __construct(
         protected string $key,
