@@ -1,8 +1,8 @@
 {
     "name": "wimski/nominatim-geocoding-api-client",
     "description": "Nominatim Geocoding API Client",
-    "type": "library",
     "license": "MIT",
+    "type": "library",
     "keywords": [
         "wimski",
         "nominatim",
@@ -35,6 +35,8 @@
         "phpunit/phpunit": "^9.5",
         "swisnl/php-http-fixture-client": "^3.0"
     },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "autoload": {
         "psr-4": {
             "Wimski\\Nominatim\\": "src/"
@@ -48,11 +50,9 @@
     "config": {
         "sort-packages": true
     },
-    "minimum-stability": "dev",
-    "prefer-stable": true,
     "scripts": {
+        "coverage": "@php vendor/phpunit/phpunit/phpunit",
         "phpstan": "@php vendor/phpstan/phpstan/phpstan analyse --memory-limit 1G",
-        "phpunit": "@php vendor/phpunit/phpunit/phpunit --no-coverage",
-        "coverage": "@php vendor/phpunit/phpunit/phpunit"
+        "phpunit": "@php vendor/phpunit/phpunit/phpunit --no-coverage"
     }
 }
