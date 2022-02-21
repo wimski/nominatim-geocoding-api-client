@@ -19,6 +19,10 @@ use Psr\Http\Message\UriInterface;
 use Wimski\Nominatim\Client;
 use Wimski\Nominatim\Exceptions\RequestException;
 
+/**
+ * @runTestsInSeparateProcesses
+ * @preserveGlobalState disabled
+ */
 class ClientTest extends AbstractTest
 {
     /**

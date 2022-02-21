@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Wimski\Nominatim\Tests;
 
-use PHPUnit\Framework\TestCase;
 use Swis\Http\Fixture\Client as FixtureClient;
 use Swis\Http\Fixture\ResponseBuilder;
 use Wimski\Nominatim\Client;
@@ -13,7 +12,7 @@ use Wimski\Nominatim\GeocoderServices\NominatimGeocoderService;
 use Wimski\Nominatim\RequestParameters\ForwardGeocodingQueryRequestParameters;
 use Wimski\Nominatim\Transformers\GeocodingResponseTransformer;
 
-class IntegrationTest extends TestCase
+class IntegrationTest extends AbstractTest
 {
     protected Client $client;
 
