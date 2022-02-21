@@ -4,6 +4,10 @@
 
 # Nominatim Geocoding API Client
 
+## Changelog
+
+[View the changelog.](./CHANGELOG.md)
+
 ## Usage
 
 ### Install package
