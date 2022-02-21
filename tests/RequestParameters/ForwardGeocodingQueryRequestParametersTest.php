@@ -24,6 +24,20 @@ class ForwardGeocodingQueryRequestParametersTest extends AbstractTest
     /**
      * @test
      */
+    public function it_can_be_made_statically(): void
+    {
+        $parameters = ForwardGeocodingQueryRequestParameters::make('search terms');
+
+        static::assertInstanceOf(ForwardGeocodingQueryRequestParameters::class, $parameters);
+
+        static::assertSame([
+            'q' => 'search terms',
+        ], $parameters->toArray());
+    }
+
+    /**
+     * @test
+     */
     public function it_converts_to_an_array(): void
     {
         static::assertSame([

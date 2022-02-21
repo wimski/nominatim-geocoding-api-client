@@ -24,6 +24,16 @@ class ForwardGeocodingStructuredRequestParametersTest extends TestCase
     /**
      * @test
      */
+    public function it_can_be_made_statically(): void
+    {
+        $parameters = ForwardGeocodingStructuredRequestParameters::make();
+
+        static::assertInstanceOf(ForwardGeocodingStructuredRequestParameters::class, $parameters);
+    }
+
+    /**
+     * @test
+     */
     public function it_converts_to_an_array(): void
     {
         static::assertSame([], $this->parameters->toArray());

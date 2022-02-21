@@ -16,6 +16,11 @@ class ReverseGeocodingRequestParameters extends AbstractGeocodingRequestParamete
     ) {
     }
 
+    public static function make(Coordinate $coordinate): self
+    {
+        return new self($coordinate);
+    }
+
     public function zoom(int $zoom): self
     {
         $this->zoom = max(0, min($zoom, 18));

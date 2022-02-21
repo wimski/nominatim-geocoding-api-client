@@ -15,6 +15,11 @@ class ForwardGeocodingStructuredRequestParameters extends ForwardGeocodingReques
     protected ?string $country = null;
     protected ?string $postalCode = null;
 
+    public static function make(): self
+    {
+        return new self();
+    }
+
     public function street(string $street): self
     {
         $this->street = $street;

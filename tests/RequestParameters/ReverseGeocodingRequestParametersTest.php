@@ -25,6 +25,23 @@ class ReverseGeocodingRequestParametersTest extends AbstractTest
     /**
      * @test
      */
+    public function it_can_be_made_statically(): void
+    {
+        $parameters = ReverseGeocodingRequestParameters::make(
+            new Coordinate(52.1009274, 5.644109),
+        );
+
+        static::assertInstanceOf(ReverseGeocodingRequestParameters::class, $parameters);
+
+        static::assertSame([
+            'lat' => 52.1009274,
+            'lon' => 5.644109,
+        ], $parameters->toArray());
+    }
+
+    /**
+     * @test
+     */
     public function it_converts_to_an_array(): void
     {
         static::assertSame([
