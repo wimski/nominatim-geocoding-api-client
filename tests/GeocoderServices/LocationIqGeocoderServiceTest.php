@@ -77,6 +77,7 @@ class LocationIqGeocoderServiceTest extends AbstractTest
                 'param'  => 'value',
                 'format' => 'json',
                 'key'    => 'access-token',
+                'source' => 'nom',
             ])
             ->andReturn($response);
 
@@ -117,6 +118,7 @@ class LocationIqGeocoderServiceTest extends AbstractTest
                 'param'  => 'value',
                 'format' => 'json',
                 'key'    => 'access-token',
+                'source' => 'nom',
             ])
             ->andReturn($response);
 

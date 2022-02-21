@@ -29,7 +29,8 @@ class LocationIqGeocoderService extends AbstractGeocoderService
     {
         $array = parent::convertParametersToArray($parameters);
 
-        $array['key'] = $this->config->getKey();
+        $array['key']    = $this->config->getKey();
+        $array['source'] = 'nom';
 
         return $array;
     }
