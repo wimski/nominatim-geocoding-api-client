@@ -7,6 +7,7 @@ namespace Wimski\Nominatim\Enums;
 use MyCLabs\Enum\Enum;
 
 /**
+ * @extends Enum<string>
  * @method static static GEO_JSON()
  * @method static static KML()
  * @method static static SVG()
