@@ -74,6 +74,7 @@ $service = new NominatimGeocoderService(
 Services for the following providers are currently available:
 * [Nominatim](https://nominatim.org/release-docs/latest/api/Overview/)
 * [LocationIQ](https://locationiq.com/docs)
+* Generic: without any implementation specific headers or parameters.
 
 Custom services can easily be created by extending the `AbstractGeocoderService`
 as long as the provider implements the Nominatim spec correctly.

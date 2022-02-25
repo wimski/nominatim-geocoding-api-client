@@ -9,4 +9,7 @@ This changelog is initialized in release 1.0.0
 
 ## [Unreleased]
 
+### Added
+* Generic geocoder service
+
 [Unreleased]: https://github.com/wimski/nominatim-geocoding-api-client/compare/v1.0.0...master
