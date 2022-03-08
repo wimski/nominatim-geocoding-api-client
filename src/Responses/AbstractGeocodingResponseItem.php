@@ -22,9 +22,9 @@ abstract class AbstractGeocodingResponseItem implements GeocodingResponseItemInt
 
     protected int $placeId;
     protected string $displayName;
-    protected string $license;
     protected Coordinate $coordinate;
     protected Area $boundingBox;
+    protected ?string $license;
     protected ?Address $address = null;
     protected ?int $osmId = null;
     protected ?OsmTypeEnum $osmType = null;
@@ -45,11 +45,6 @@ abstract class AbstractGeocodingResponseItem implements GeocodingResponseItemInt
         return $this->displayName;
     }
 
-    public function getLicense(): string
-    {
-        return $this->license;
-    }
-
     public function getCoordinate(): Coordinate
     {
         return $this->coordinate;
@@ -58,6 +53,11 @@ abstract class AbstractGeocodingResponseItem implements GeocodingResponseItemInt
     public function getBoundingBox(): Area
     {
         return $this->boundingBox;
+    }
+
+    public function getLicense(): ?string
+    {
+        return $this->license;
     }
 
     public function getAddress(): ?Address
@@ -94,7 +94,6 @@ abstract class AbstractGeocodingResponseItem implements GeocodingResponseItemInt
         $this->validateArray($data, [
             'place_id',
             'display_name',
-            'license',
             'lat',
             'lon',
             'boundingbox',
@@ -122,7 +121,7 @@ abstract class AbstractGeocodingResponseItem implements GeocodingResponseItemInt
     {
         $this->placeId     = intval($data['place_id']);
         $this->displayName = strval($data['display_name']);
-        $this->license     = strval($data['license']);
+        $this->license     = $this->getOptionalStringArrayValue($data, 'license');
         $this->osmId       = $this->getOptionalIntegerArrayValue($data, 'osm_id');
     }
 

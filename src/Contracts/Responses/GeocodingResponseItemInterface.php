@@ -15,9 +15,9 @@ interface GeocodingResponseItemInterface
 {
     public function getPlaceId(): int;
     public function getDisplayName(): string;
-    public function getLicense(): string;
     public function getCoordinate(): Coordinate;
     public function getBoundingBox(): Area;
+    public function getLicense(): ?string;
     public function getAddress(): ?Address;
     public function getOsmId(): ?int;
     public function getOsmType(): ?OsmTypeEnum;

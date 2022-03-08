@@ -147,35 +147,6 @@ class ReverseGeocodingResponseTest extends AbstractTest
     /**
      * @test
      */
-    public function it_throws_an_exception_if_the_license_is_missing(): void
-    {
-        static::expectException(InvalidArgumentException::class);
-        static::expectExceptionMessage("Missing key 'license' in array");
-
-        new ReverseGeocodingResponse($this->mockResponse('{
-            "place_id": 12345,
-            "display_name": "Beautiful Building"
-        }'));
-    }
-
-    /**
-     * @test
-     */
-    public function it_throws_an_exception_if_the_license_is_null(): void
-    {
-        static::expectException(InvalidArgumentException::class);
-        static::expectExceptionMessage("Key 'license' cannot be null");
-
-        new ReverseGeocodingResponse($this->mockResponse('{
-            "place_id": 12345,
-            "display_name": "Beautiful Building",
-            "license": null
-        }'));
-    }
-
-    /**
-     * @test
-     */
     public function it_throws_an_exception_if_the_lat_is_missing(): void
     {
         static::expectException(InvalidArgumentException::class);
