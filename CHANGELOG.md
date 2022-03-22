@@ -9,6 +9,11 @@ This changelog is initialized in release 1.0.0
 
 ## [Unreleased]
 
+## [v1.2.0] - 2022-03-22
+
+### Added
+* Missing address properties (https://nominatim.org/release-docs/latest/api/Output/#addressdetails)
+
 ## [v1.1.1] - 2022-03-08
 
 ### Fixed
